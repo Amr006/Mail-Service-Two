@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../cssGhoul.css" />
+    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../all.min.css" />
+    <link rel="stylesheet" href="../fontawesome.min.css" />
+    <link rel="icon" href="../Images/BTB LOGO ICON COLORED-01.png" />
+    <title>Business Travel Bureau</title>
+  </head>
+  <script src="../node_modules/moment/src/moment.js"></script>
+  <body>
+    <main class="grid jcs aic g30">
+      <header>
+        <div class="contain grid jcs aic g30">
+          <a href="/">
+            <img
+            src="../Images/BTB LOGO COLORED-01.png"
+            alt="logo"
+            class="center_rel_x logo"
+          />
+          </a>
+          <div class="booking grid jcs aic g20 pad10">
+            <div class="flex jcsb aic g30">
+              <h3>Online Booking Form</h3>
+              <button id="add_button" class="flex jcc aic g5 primary">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            </div>
+            <div class="flex jcsb aic g30 flex_wrap">
+              <form
+                action="/filter"
+                method="POST"
+                id="filter_form"
+                class="form_filter flex jcs aic g10"
+              >
+                <h3>Filter By :</h3>
+                <select id="filter_by_closer_name" name="closerName">
+                  <option value="">Closer Name</option>
+                  <option value="Jasmine Griffin">Jasmine Griffin</option>
+                  <option value="Oliver Shaw">Oliver Shaw</option>
+                  <option value="Veronica Iceberg">Veronica Iceberg</option>
+                  <option value="Sarah Anderson">Sarah Anderson</option>
+                  <option value="April Adams">April Adams</option>
+                  <option value="Harry Stanford">Harry Stanford</option>
+                </select>
+              </form>
+              <form
+                action="/"
+                method="GET"
+                id="select_page_form"
+                class="form_filter flex jcs aic g10"
+              >
+                <h3>Select Page :</h3>
+                <select id="select_page" name="page">
+                  <option value="0">Select Page</option>
+                  <% for(let i=1;i<count;i++){ %>
+                  <option value=<%=i%> <%= page == i ? 'selected' : '' %> ><%=i%></option>
+                  <% } %>
+                </select>
+              </form>
+              <form
+                action="/search"
+                method="POST"
+                id="search_form"
+                class="form_search flex jcs aic"
+              >
+                <input
+                  type="search"
+                  name="search"
+                  id="search"
+                  placeholder="Search..."
+                  class="pad10"
+                />
+                <button type="submit" class="flex search_button jcc aic pad10">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="logs">
+        <div class="contain grid jcs aic g30">
+          <%data.forEach((e) => { %>
+          <div class="log grid jcs aic pad10 g10">
+            <div class="log_info grid jcfs aic g5">
+              <h4>Customer Name : <span><%= e.CustomerName%></span></h4>
+              <h4>Customer Email : <span><%= e.CustomerEmail%></span></h4>
+              <h4>Hotel Name : <span><%= e.HotelName%></span></h4>
+              <h4>Closer Name : <span><%= e.CloserName%></span></h4>
+              <h5>
+                <%= new Intl.DateTimeFormat('en-US', { year: 'numeric', month:
+                '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+                second: '2-digit' }).format(new Date(e.createdAt)); %>
+              </h5>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+
+      <section class="booking_form">
+        <div class="back"></div>
+        <form action="/sendEmail" method="post" class="form" id="booking_form">
+          <div class="head flex jcsb pad20 aic g30">
+            <h3 class="flex jcfs aic g10">
+              <div id="close_button" class="flex close_icon jcc aic">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+              Online Booking Form
+            </h3>
+            <div class="buttons flex jcfe aic g5">
+              <button id="cancel_button" type="button" class="secondary">
+                Cancel
+              </button>
+              <button
+                id="save_button"
+                type="submit"
+                class="flex jcc aic primary"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+          <div class="form_inputs pad20 grid jcs aifs g30">
+            <div class="closer_name grid jcs aic g10">
+              <label for="closer_name">Closer Name</label>
+              <select required name="closerName" id="closer_name">
+                <option value="Choose Closer Name"></option>
+                <option value="Jasmine Griffin">Jasmine Griffin</option>
+                <option value="Oliver Shaw">Oliver Shaw</option>
+                <option value="Veronica Iceberg">Veronica Iceberg</option>
+                <option value="Sarah Anderson">Sarah Anderson</option>
+                <option value="April Adams">April Adams</option>
+                <option value="Harry Stanford">Harry Stanford</option>
+              </select>
+            </div>
+            <div class="customer_name grid jcs aic g10">
+              <label for="customer_name">Customer Name</label>
+              <input
+                id="customer_name"
+                required
+                type="text"
+                name="customerName"
+                placeholder="Enter Customer Name"
+              />
+            </div>
+            <div class="customer_email grid jcs aic g10">
+              <label for="customer_email">Customer Email</label>
+              <input
+                id="customer_email"
+                required
+                type="email"
+                name="customerEmail"
+                placeholder="Enter Customer Email"
+              />
+            </div>
+            <div class="hotel_name grid jcs aic g10">
+              <label for="hotel_name">Hotel Name</label>
+              <input
+                id="hotel_name"
+                required
+                type="text"
+                name="hotelName"
+                placeholder="Enter Hotel Name"
+              />
+            </div>
+
+            <div class="hotel_price grid jcs aic g10">
+              <label for="hotel_price">Hotel Price</label>
+              <input
+                id="hotel_price"
+                required
+                type="number"
+                name="hotelPrice"
+                placeholder="0"
+              />
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <div class="loading jcc aic">
+        <div class="overlay"></div>
+        <img src="../Images/spinner.gif" alt="loading" />
+      </div>
+
+      <div
+        class="webGhoul-alert center_abs_x flex jcc aic pad10"
+        id="webGhoul_alert"
+      >
+        <span class="flex jcc aic g10">
+          <i class="fa-solid fa-circle-check"></i>
+          <p>Message Sent Successfully!!</p>
+        </span>
+      </div>
+    </main>
+    <script src="../index.js"></script>
+  </body>
+</html>
