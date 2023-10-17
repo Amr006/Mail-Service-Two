@@ -9,8 +9,12 @@ body.active {
     padding-right: 0px !important;
 }
 
-.logo {
-    width: 100px;
+.link_logo {
+    width: min-content;
+}
+
+.link_logo .logo {
+    width: 200px;
 }
 
 button.primary, button.secondary {
@@ -28,7 +32,7 @@ button.primary, button.secondary {
 }
 
 .form_search:hover, .form_search:focus {
-    border-color: #037ef3;
+    border-color: var(--main);
 }
 
 .search_button i {
@@ -67,7 +71,8 @@ button.primary, button.secondary {
 }
 
 .log_info h4 span {
-    color: #037ef3;
+    color: var(--main);
+
 }
 
 /*End Logs*/
@@ -204,6 +209,35 @@ button.primary, button.secondary {
 }
 
 /*End loading*/
+
+/*Start Footer*/
+footer .chevron_icon_button {
+    background-color: var(--main);
+    border: 2px solid var(--main);
+    transition: var(--transition);
+    border-radius: 4px;
+}
+
+footer .chevron_icon_button.disable {
+    opacity: 0.5;
+    z-index: -1;
+}
+
+footer .chevron_icon_button i {
+    color: var(--white);
+}
+
+footer .chevron_icon_button:hover {
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+footer .chevron_icon_button:hover i {
+    color: var(--main);
+}
+
+/*End Footer*/
+
 
 /*Start webGhoul Alert*/
 .webGhoul-alert {

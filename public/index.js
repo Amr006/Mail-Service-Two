@@ -3,7 +3,6 @@ const bookingFormContain = document.querySelector("section.booking_form .form");
 const loading = document.querySelector(".loading");
 const bookingForm = document.getElementById("booking_form");
 const searchForm = document.getElementById("search_form");
-const selectForm = document.getElementById("select_page_form");
 const filterForm = document.getElementById("filter_form");
 
 //Buttons
@@ -11,6 +10,8 @@ const addButton = document.getElementById("add_button");
 const closeButton = document.getElementById("close_button");
 const cancelButton = document.getElementById("cancel_button");
 const saveButton = document.getElementById("save_button");
+const chevronButtonLeft = document.getElementById("chevron_button_left");
+const chevronButtonRight = document.getElementById("chevron_button_right");
 
 //Select & inputs
 const time = document.getElementById("time");
@@ -21,8 +22,34 @@ const hotelName = document.getElementById("hotel_name");
 const hotelPrice = document.getElementById("hotel_price");
 const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("filter_by_closer_name");
-const selectPage = document.getElementById("select_page");
+const selectedPage = document.getElementById("page_count");
 const webGhoulAlert = document.getElementById("webGhoul_alert");
+
+const query = new URLSearchParams(window.location.search);
+
+const page = query.get("page");
+
+const maxPages = +selectedPage.getAttribute("max");
+
+if (page) {
+  selectedPage.innerHTML = page;
+} else {
+  selectedPage.innerHTML = "0";
+}
+
+if (+selectedPage.textContent <= 0) {
+  chevronButtonLeft.classList.add("disable");
+  chevronButtonRight.classList.remove("disable");
+} else {
+  chevronButtonLeft.classList.remove("disable");
+}
+
+if (+selectedPage.textContent >= maxPages) {
+  chevronButtonRight.classList.add("disable");
+  chevronButtonLeft.classList.remove("disable");
+} else {
+  chevronButtonRight.classList.remove("disable");
+}
 
 filterSelect.addEventListener("change", () => {
   filterForm.submit();
@@ -63,13 +90,17 @@ const existingCookie = document.cookie;
 const cookieData = Object.fromEntries(
   existingCookie.split("; ").map((pair) => pair.split("="))
 );
+
 if (cookieData.sent === "true") {
   handleWebGhoulAlert();
 }
 
-selectPage.addEventListener("change", (e) => {
-  selectForm.action = `${selectForm.action}?page=${selectPage.value}`
-  selectForm.submit()
+chevronButtonRight.addEventListener("click", () => {
+  window.location.href = `/?page=${+page+1}`;
+});
+
+chevronButtonLeft.addEventListener("click", () => {
+  window.location.href = `/?page=${+page-1}`;
 });
 
 // searchInput.addEventListener("input", () => {
