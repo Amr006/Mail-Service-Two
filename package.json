@@ -34,7 +34,8 @@
     "moment": "^2.29.4",
     "mongoose": "^7.5.2",
     "nodemailer": "^6.9.5",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "vercel": "^32.4.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
